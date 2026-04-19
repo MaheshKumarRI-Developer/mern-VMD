@@ -24,7 +24,7 @@ function App() {
     setError('')
 
     try {
-      const response = await axios.get('http://localhost:5000/api/data')
+      const response = await axios.get('https://mern-vmd.onrender.com/api/data')
       setData(response.data || [])
     } catch (err) {
       setError('Unable to load vulnerability data. Please try again.')
