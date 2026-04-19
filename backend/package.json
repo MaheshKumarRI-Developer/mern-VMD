@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "setup": "mkdir -p models routes && echo 'const mongoose = require(\"mongoose\"); const dataSchema = new mongoose.Schema({ title: { type: String, required: true }, content: { type: String, required: true }, createdAt: { type: Date, default: Date.now } }); module.exports = mongoose.model(\"Data\", dataSchema);' > models/Data.js && echo 'const express = require(\"express\"); const Data = require(\"../models/Data\"); const router = express.Router(); router.get(\"/\", async (req, res) => { try { const data = await Data.find(); res.json(data); } catch (err) { res.status(500).json({ message: err.message }); } }); router.post(\"/\", async (req, res) => { const data = new Data({ title: req.body.title, content: req.body.content }); try { const newData = await data.save(); res.status(201).json(newData); } catch (err) { res.status(400).json({ message: err.message }); } }); module.exports = router;' > routes/dataRoutes.js && echo 'Setup complete. Models and routes created.'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.1",
+    "mongoose": "^9.4.1"
+  }
+}
